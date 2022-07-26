@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DuongvmPH13221_Assignment</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+</head>
+
+<body ng-app="myApp">
+  <div class="container" ng-controller="myCtrl">
+    <header class="row">
+      <img src="images\banner.png" class="col-12 img-fluid">
+    </header>
+    <div class="row m-0">
+      <marquee behavior="scroll" direction="left">
+        <p style="margin-bottom: 0px; color: blue;">Chào mừng bạn đến với website thi trắc nghiệm trực tuyến
+      </marquee>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+          aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#home"><i
+                  class="bi bi-house-door-fill"></i> Trang chủ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#about" ><i class="bi bi-list-task"></i> Giới thiệu</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#subject" ><i class="bi bi-book-fill"></i> Môn học</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact" ><i class="bi bi-telephone-fill"></i> Liên hệ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#feedback" ><i class="bi bi-envelope-fill"></i> Góp ý</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#qna" ><i class="bi bi-question-circle-fill"></i> Hỏi đáp</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-fill"></i>
+                Tài khoản
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li><button class="btn btn-default px-0" ng-disabled="isLogin"><a class="dropdown-item" href="#login">Đăng nhập</a></button></li>
+                <li><button class="btn btn-default px-0"><a class="dropdown-item" href="#forgetpass" >Quên mật khẩu</a></button></li>
+                <li><button class="btn btn-default px-0"><a class="dropdown-item border-bottom" href="#signin" >Đăng ký thành viên</a></button></li>
+                <li><button class="btn btn-default px-0" ng-click="logOut()" ng-disabled="!isLogin"><a class="dropdown-item" href="#home">Đăng xuất</a></button></li>
+                <li><button class="btn btn-default px-0" ng-disabled="!isLogin"><a class="dropdown-item" href="#changepass">Đổi mật khẩu</a></button></li>
+                <li><button class="btn btn-default px-0" ng-disabled="!isLogin"><a class="dropdown-item" href="#updateinfo">Cập nhật hồ sơ</a></button></li>
+                <li><button class="btn btn-default px-0" ng-disabled="!isLogin"><a class="dropdown-item" href="#history">Lịch sử làm bài</a></button></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-fill"></i>
+                Quản lý
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li><button ng-disabled="!isLogin || !isAdmin" class="btn btn-default px-0"><a class="dropdown-item" href="#usermanage">Quản lý người dùng</a></button></li>
+                <li><button ng-disabled="!isLogin || !isAdmin" class="btn btn-default px-0"><a class="dropdown-item" href="#questionmanage" >Quản lý ngân hàng câu hỏi</a></button></li>
+              </ul>
+            </li>
+          </ul>
+          <form class="d-flex">
+            <span ng-hide="!isLogin"><p class="m-0"  style="color: white;">Welcome, {{currentStudent.fullname}}</p></span>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <div class="row mt-2 mx-0">
+      <article class="border col-12 col-md-7 col-lg-9">
+        <div class="container container-fluid overflow-auto">
+          <div class="row ratio ratio-1x1">
+            <div ng-view></div>
+          </div>
+        </div>
+      </article>
+      <aside class="col-12 col-md-5 col-lg-3 pe-0">
+        <div class="container px-0">
+          <fieldset>
+            <div class="accordion" id="accordionExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                    aria-expanded="true" aria-controls="collapseOne">
+                    <strong>Danh sách môn học</strong>
+                  </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show"
+                  aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                  <ul class="list-group" ng-repeat="sub in lstSubject">
+                    <li class="list-group-item">
+                      <a href="#exam/{{sub.Id}}/{{sub.Name}}" style="text-decoration: none;">{{sub.Name}}</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </aside>
+
+    </div>
+    <footer class="row mt-2 mx-0 text-center" style="height: 30px;">
+      <div class="container">
+        <div class="row bg-secondary">
+          <div class="col-4 mt-3">
+            <fieldset>
+              <legend><strong>Liên hệ</strong></legend>
+              <p class="text-white"><i class="bi bi-telephone-fill"></i> Phone: (+84) 367 027 205</p>
+              <p class="text-white"><i class="bi bi-envelope-fill"></i> Email: duongvmph13221@fpt.edu.vn</p>
+            </fieldset>
+          </div>
+          <div class="col-4 mt-3">
+            <fieldset>
+              <legend><strong>Theo dõi chúng tôi</strong></legend>
+              <div class="row">
+                <div class="col-2 offset-3"><a class="text-white"
+                    href="https://www.facebook.com/profile.php?id=100016844441055"><i class="bi bi-facebook"></i></a>
+                </div>
+                <div class="col-2"><a class="text-white" href="https://twitter.com/VMnhDng46100929"><i
+                      class="bi bi-twitter"></i></a></div>
+                <div class="col-2"><a class="text-white"
+                    href="https://www.youtube.com/channel/UCuTLV-N0CyvH45Wm0BopWqw"><i class="bi bi-youtube"></i></a>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="col-4 mt-3">
+            <fieldset>
+              <legend><strong>Website</strong></legend>
+              <div class="row">
+                <div class="col-6">
+                  <a class="text-white text-decoration-none" href="#home">Trang chủ</a><br>
+                  <a class="text-white text-decoration-none" href="#subject">Môn học</a><br>
+                  <a class="text-white text-decoration-none" href="#about">Giới thiệu</a>
+                </div>
+                <div class="col-6">
+                  <a class="text-white text-decoration-none" href="#contact">Liên hệ</a><br>
+                  <a class="text-white text-decoration-none" href="#feedback">Góp ý</a><br>
+                  <a class="text-white text-decoration-none" href="#qna">Hỏi đáp</a>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+      <span class="bg-dark text-white"> Copyright © DuongPH13221</span>
+    </footer>
+  </div>
+  <div ng-show="isLoading" class="loading">
+    <div class="spinner-border text-primary spinner-center" role="status">
+    </div>
+  </div>
+
+  <script src="js/angular.min.js"></script>
+  <script src="js/angular-route.js"></script>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="controller/changepassCtrl.js"></script>
+  <script src="controller/examCtrl.js"></script>
+  <script src="controller/feedbackCtrl.js"></script>
+  <script src="controller/forgetpassCtrl.js"></script>
+  <script src="controller/loginCtrl.js"></script>
+  <script src="controller/signinCtrl.js"></script>
+  <script src="controller/subjectCtrl.js"></script>
+  <script src="controller/updateinfoCtrl.js"></script>
+  <script src="controller/usermanageCtrl.js"></script>
+  <script src="controller/questionmanageCtrl.js"></script>
+  <script src="controller/questionsCtrl.js"></script>
+  <script src="controller/historyCtrl.js"></script>
+  <script>
+    const app = angular.module("myApp", ["ngRoute"]);
+    app.controller("myCtrl", function ($scope, $http, $rootScope) {
+      $rootScope.isLogin = false;
+      $rootScope.isAdmin = false;
+      $scope.lstSubject = [];
+      $scope.lstStudent = [];
+      $rootScope.currentStudent = {
+        id: "",
+        username: "",
+        password: "",
+        fullname: "",
+        email: "",
+        gender: "",
+        role: "",
+        birthday: "",
+        history: [],
+        schoolfee: "",
+        marks: ""
+      };
+      $rootScope.currentStudent = JSON.parse(localStorage.getItem("current-student"));
+      
+      const apiSubject = 'https://620e69a0585fbc3359e1b16d.mockapi.io/Subjects';
+      const apiStudent = 'https://620e69a0585fbc3359e1b16d.mockapi.io/Students';
+      $http.get(apiSubject).then(function (response) {
+        $scope.lstSubject = response.data;
+      })
+      $http.get(apiStudent).then(function (response) {
+        $scope.lstStudent = response.data;
+      })
+      $scope.logOut = function(){
+        $rootScope.currentStudent = {};
+        $rootScope.isLogin = false;
+      }
+    });
+    app.config(function ($routeProvider) {
+      $routeProvider.when("/", {
+        templateUrl: "pages/home.html"
+      }).when("/login", {
+        templateUrl: "pages/login.html",
+        controller: "loginController"
+      }).when("/signin", {
+        templateUrl: "pages/signin.html",
+        controller: "signinController"
+      }).when("/changepass", {
+        templateUrl: "pages/changepass.html",
+        controller: "changepassController"
+      }).when("/about", {
+        templateUrl: "pages/about.html"
+      }).when("/feedback", {
+        templateUrl: "pages/feedback.html",
+        controller: "feedbackController"
+      }).when("/qna", {
+        templateUrl: "pages/qna.html"
+      }).when("/contact", {
+        templateUrl: "pages/contact.html"
+      }).when("/subject", {
+        templateUrl: "pages/subject.html",
+        controller: "subjectController"
+      }).when("/forgetpass", {
+        templateUrl: "pages/forgetpass.html",
+        controller: "forgetpassController"
+      }).when("/updateinfo", {
+        templateUrl: "pages/updateinfo.html",
+        controller: "updateinfoController"
+      }).when("/exam/:id/:name", {
+        templateUrl: "pages/exam.html",
+        controller: "examController"
+      }).when("/questions/:id/:name", {
+        templateUrl: "pages/questions.html",
+        controller: "questionsController"
+      }).when("/usermanage", {
+        templateUrl: "pages/usermanage.html",
+        controller: "usermanageController"
+      }).when("/questionmanage", {
+        templateUrl: "pages/questionmanage.html",
+        controller: "questionmanageController"    
+      }).when("/history", {
+        templateUrl: "pages/history.html",
+        controller: "historyController"    
+      }).otherwise({
+        redirectTo: "/"
+      })
+    })
+
+    app.run(function ($rootScope) {
+      $rootScope.$on('$routeChangeStart', function () {
+        $rootScope.isLoading = true
+      })
+      $rootScope.$on('$routeChangeSuccess', function () {
+        $rootScope.isLoading = false
+      })
+      $rootScope.$on('$routeChangeError', function () {
+        $rootScope.isLoading = false
+      })
+    })
+
+    app.controller("loginController", loginController)
+    app.controller("signinController", signinController)
+    app.controller("forgetpassController", forgetpassController)
+    app.controller("updateinfoController", updateinfoController)
+    app.controller("changepassController", changepassController)
+    app.controller("subjectController", subjectController)
+    app.controller("examController", examController)
+    app.controller("feedbackController", feedbackController)
+    app.controller("usermanageController", usermanageController)
+    app.controller("questionmanageController", questionmanageController)
+    app.controller("questionsController", questionsController)
+    app.controller("historyController", historyController)
+  </script>
+</body>
+
+</html>

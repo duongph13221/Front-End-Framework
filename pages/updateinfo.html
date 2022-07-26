@@ -1,0 +1,62 @@
+<div class="container">
+    <h3 class="text-center text-danger fw-bold text-uppercase mt-5">Cập nhật hồ sơ</h3>
+    <div class="row mt-3">
+        <div class="alert {{isSuccess == true ? 'alert-success' : 'alert-danger' }}"
+        ng-show="message.length != 0">
+            {{message}}
+        </div>
+        <form action="" name="frmUpdateInfo">
+            <div class="mt-4 mx-0">
+                <label class="col-12 col-md-4 mb-2 fw-bold">
+                    Họ và tên(<span class="text-danger">*</span>):
+                </label>
+                <input type="text" class="form-control" id="name" placeholder="Họ và tên" ng-model="student.fullname" name="name" required>
+                <span ng-hide="frmUpdateInfo.name.$untouched || frmUpdateInfo.name.$valid" class="text-danger">Họ và tên trống</span>
+            </div>
+            <div class="mt-4 mx-0">
+                <label class="col-12 col-md-4 mb-2 fw-bold">
+                    Email(<span class="text-danger">*</span>):
+                </label>
+                <input type="email" class="form-control" id="email" placeholder="Email" ng-model="student.email" name="email" required>
+                <span class="text-danger" ng-hide="frmUpdateInfo.email.$untouched || frmUpdateInfo.email.$valid">
+                    <span ng-show="frmUpdateInfo.email.$error.required">Không được để trống</span>
+                    <span ng-show="frmUpdateInfo.email.$error.email">Sai định dang email</span>
+                </span>
+            </div>
+            <div class="mt-4 mx-0">
+                <label class="col-12 col-md-4 mb-2 fw-bold">
+                    Ngày sinh(<span class="text-danger">*</span>):
+                </label>
+                <input type="text" class="form-control" id="birth" placeholder="Ngày sinh" ng-model="student.birthday" name="birth" required>
+                <span ng-hide="frmUpdateInfo.birth.$untouched || frmUpdateInfo.name.$valid" class="text-danger">Ngày sinh trống</span>
+            </div>
+            <div class="mt-4">
+                <label class="col-12 col-md-4 mb-2 fw-bold" for="gioi_tinh_nam">
+                    Giới tính(<span class="text-danger">*</span>):
+                </label>
+                <div class="col-10 row">
+                    <div class="col-2">
+                        <input ng-model="student.gender" ng-checked="student.gender" type="radio" value="true" class="form-check-input" name="gioi_tinh" id="gioi_tinh_nam" />
+                        <label for="gioi_tinh_nam">Nam</label>
+                    </div>
+                    <div class="col-2">
+                        <input ng-model="student.gender" ng-checked="!student.gender" type="radio" value="false" class="form-check-input" name="gioi_tinh" id="gioi_tinh_nu" />
+                        <label for="gioi_tinh_nu">Nữ</label>
+                    </div>
+                </div>
+            </div>  
+            <div class="mt-4 mx-0">
+                <label class="col-12 col-md-4 mb-2 fw-bold">
+                    Tên đăng nhập(<span class="text-danger">*</span>):
+                </label>
+                <input type="text" class="form-control" id="username" placeholder="Tên đăng nhập" ng-model="student.username" name="username" required>
+                <span ng-hide="frmUpdateInfo.username.$untouched || frmUpdateInfo.username.$valid" class="text-danger">Không được để trống tên đăng nhập</span>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-4 offset-1 mt-4">
+                    <button type="button" ng-disabled="frmUpdateInfo.$invalid" ng-click="updateAccount(currentStudent.id)" class="btn btn-outline-primary btn-lg text-nowrap"><i class="bi bi-check-circle-fill"></i> Xác nhận</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

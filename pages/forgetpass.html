@@ -1,0 +1,31 @@
+<div class="container">
+    <h3 class="text-center text-danger fw-bold text-uppercase mt-5">quên mật khẩu</h3>
+    <div class="row mt-3">
+        <div class="alert {{isSuccess == true ? 'alert-success' : 'alert-danger' }}"
+        ng-show="message.length != 0">
+            {{message}}  <span><a class="float-end fw-bold" href="#login" style="text-decoration: none;"></a></span>
+        </div>
+        <form action="" name="frmForgetPass">
+            <div class="row mt-4">
+                <div class="col-12">
+                    <input type="text" class="form-control" id="username" placeholder="Tên đăng nhập" ng-model="student.username" name="username" required>
+                    <span ng-hide="frmForgetPass.username.$untouched || frmForgetPass.username.$valid" class="text-danger">Vui lòng nhập tên đăng nhập</span>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12">
+                    <input type="email" class="form-control" id="email" placeholder="Email" ng-model="student.email" name="email" required>
+                    <span class="text-danger" ng-hide="frmForgetPass.email.$untouched || frmForgetPass.email.$valid">
+                        <span ng-show="frmForgetPass.email.$error.required">Không được để trống</span>
+                        <span ng-show="frmForgetPass.email.$error.email">Sai định dang email</span>
+                    </span>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-4 offset-1 mt-4">
+                    <button ng-disabled="frmForgetPass.$invalid" ng-click="forgetPassOnSubmit()" type="button" class="btn btn-outline-primary btn-lg text-nowrap"><i class="bi bi-check-circle-fill"></i> Xác nhận</button>
+                </div>
+              </div>
+        </form>
+    </div>
+</div>

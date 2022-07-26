@@ -1,0 +1,19 @@
+<div class="container">
+    <p class="text-center fw-bold text-primary">Lịch sử làm bài</p>
+    <table class="table table-info table-striped">
+        <thead>
+            <tr>
+                <th>Subject Id</th>
+                <th>Subject Name</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="history in histories">
+                <td>{{ history.subjectId}}</td>
+                <td>{{ history.subjectName}}</td>
+                <td>{{ history.score}}</td>
+            </tr>
+        </tbody>
+      </table>
+</div>

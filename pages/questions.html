@@ -1,0 +1,27 @@
+<div class="card border-info">
+    <div class="card-header text-white" style="background-color: #23B5E1;">
+        <img src="images/JAAV.png" width="30" class="border border-primary rounded-lg" alt="">
+        <span>{{quizName}}</span>
+        <span class="float-end align-middle badge bg-secondary">{{questionNum}}/{{lstQuestions.length}}</span>
+    </div>
+    <div class="card-body">
+
+        <div class="card-text" style="font-weight: 500;">
+            <input class="col-12" type="text" ng-model="question">
+            <hr>
+            <div class="form-check" ng-repeat="opt in options">
+                <label class="form-check-label" for="Radios1">
+                <input class="form-check-input" ng-checked="answer == opt.Id" type="radio" name="answer" value="{{opt.Id}}">
+                    {{opt.Text}}
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <button class="btn btn-primary" ng-click="preQuestion()">Previous</button>
+        <button class="btn btn-primary" ng-click="nextQuestion()">Next</button>
+        <button class="btn btn-primary" ng-click="">New</button>
+        <button class="btn btn-primary" ng-click="">Edit</button>
+        <button class="btn btn-primary" ng-click="">Delete</button>
+    </div>
+</div>

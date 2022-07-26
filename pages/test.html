@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body ng-app="myApp">
+    <div ng-controller="myCtrl">
+        <ul ng-repeat="sub in lstSubject">
+            <li>{{sub.Name}}</li>
+        </ul>
+        <ul ng-repeat="stu in lstStudent">
+            <li>{{stu.email}}</li>
+        </ul>
+    </div>
+
+    <script src="js/angular.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+      const app = angular.module("myApp", []);
+      app.controller("myCtrl", function($scope, $http) {
+        $scope.lstSubject = [];
+        $scope.lstStudent = [];
+        const apiSubject = 'https://620e69a0585fbc3359e1b16d.mockapi.io/Subjects';
+        const apiStudent = 'https://620e69a0585fbc3359e1b16d.mockapi.io/Students';
+        $http.get(apiSubject).then(function(response){
+          console.log(response.data);
+          $scope.lstSubject = response.data;
+        })
+        $http.get(apiStudent).then(function(response){
+          console.log(response.data);
+          $scope.lstStudent = response.data;
+        })
+    });
+    </script>
+    
+</body>
+</html>

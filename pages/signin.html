@@ -1,0 +1,84 @@
+<div class="container">
+    <h3 class="text-center text-danger fw-bold text-uppercase mt-5">đăng ký</h3>
+    <div class="row mt-3">
+        <div class="alert {{isSuccess == true ? 'alert-success' : 'alert-danger' }}"
+        ng-show="message.length != 0">
+            {{message}}
+        </div>
+        <form action="" name="frmSignin">
+            <div class="mt-4 mx-0">
+                <label class="col-12 col-md-4 mb-2 fw-bold">
+                    Họ và tên(<span class="text-danger">*</span>):
+                </label>
+                <input type="text" class="form-control" id="name" placeholder="Họ và tên" ng-model="student.fullname" name="name" required>
+                <span ng-hide="frmSignin.name.$untouched || frmSignin.name.$valid" class="text-danger">Họ và tên trống</span>
+            </div>
+            <div class="mt-4 mx-0">
+                <label class="col-12 col-md-4 mb-2 fw-bold">
+                    Email(<span class="text-danger">*</span>):
+                </label>
+                <input type="email" class="form-control" id="email" placeholder="Email" ng-model="student.email" name="email" required>
+                <span class="text-danger" ng-hide="frmSignin.email.$untouched || frmSignin.email.$valid">
+                    <span ng-show="frmSignin.email.$error.required">Không được để trống</span>
+                    <span ng-show="frmSignin.email.$error.email">Sai định dang email</span>
+                </span>
+            </div>
+            <div class="mt-4 mx-0">
+                <label class="col-12 col-md-4 mb-2 fw-bold">
+                    Ngày sinh(<span class="text-danger">*</span>):
+                </label>
+                <input type="text" class="form-control" id="birth" placeholder="Ngày sinh" ng-model="student.birthday" name="birth" required>
+                <span ng-hide="frmSignin.birth.$untouched || frmSignin.name.$valid" class="text-danger">Ngày sinh trống</span>
+            </div>
+            <div class="mt-4">
+                <label class="col-12 col-md-4 mb-2 fw-bold" for="gioi_tinh_nam">
+                    Giới tính(<span class="text-danger">*</span>):
+                </label>
+                <div class="col-10 row">
+                    <div class="col-2">
+                        <input ng-model="student.gender" type="radio" value="true" class="form-check-input" name="gioi_tinh" id="gioi_tinh_nam" />
+                        <label for="gioi_tinh_nam">Nam</label>
+                    </div>
+                    <div class="col-2">
+                        <input ng-model="student.gender" type="radio" value="false" class="form-check-input" name="gioi_tinh" id="gioi_tinh_nu" />
+                        <label for="gioi_tinh_nu">Nữ</label>
+                    </div>
+                </div>
+            </div>  
+            <div class="mt-4 mx-0">
+                <label class="col-12 col-md-4 mb-2 fw-bold">
+                    Tên đăng nhập(<span class="text-danger">*</span>):
+                </label>
+                <input type="text" class="form-control" id="username" placeholder="Tên đăng nhập" ng-model="student.username" name="username" required>
+                <span ng-hide="frmSignin.username.$untouched || frmSignin.username.$valid" class="text-danger">Không được để trống tên đăng nhập</span>
+            </div>
+            <div class="mt-4 mx-0">
+                <label class="col-12 col-md-4 mb-2 fw-bold">
+                    Mật khẩu(<span class="text-danger">*</span>):
+                </label>
+                <input class="form-control" id="pass" type="password" placeholder="Mật khẩu" ng-model="student.password" name="password" validate-password required>
+                <span class="text-danger" ng-hide="frmSignin.password.$untouched || frmSignin.password.$valid">
+                    <span ng-show="frmSignin.password.$error.required">Không được để trống mật khẩu</span>
+                    <span ng-show="frmSignin.password.$error.check_pwd">Mật khẩu phải trên 6 ký tự</span>
+                </span>
+            </div>
+            <div class="mt-4 mx-0">
+                <label class="col-12 col-md-4 mb-2 fw-bold">
+                    Xác nhận mật khẩu(<span class="text-danger">*</span>):
+                </label>
+                <input class="form-control" id="confirmpass" type="password" placeholder="Xác nhận mật khẩu" ng-model="confirmPass" name="confirmPassword" required>
+                <span class="text-danger" ng-hide="frmSignin.confirmPassword.$untouched || frmSignin.confirmPassword.$valid">
+                    <span ng-show="frmSignin.confirmPassword.$error.required">Không được để trống mật khẩu</span>
+                </span>
+            </div>
+            <div class="row mt-4 text-center">
+                <p>Đã có tài khoản ? <a class="text-primary text-decoration-none" href="#login">Đăng nhập ngay</a></p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-4 offset-1">
+                    <button ng-disabled="frmSignin.$invalid" ng-click="onSubmitForm()" type="button" class="btn btn-outline-primary btn-lg text-nowrap"><i class="bi bi-person-plus-fill"></i> Đăng ký</button>
+                </div>
+              </div>
+        </form>
+    </div>
+</div>

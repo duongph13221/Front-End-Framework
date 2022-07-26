@@ -1,0 +1,69 @@
+<div class="container my-5" id="content">
+    <div class="row" ng-show="!isLogin">
+        <div class="col text-center">
+            <p>Vui lòng đăng nhập để làm bài thi</p>
+            <button class="btn btn-primary"><a class="text-white text-decoration-none" href="#login">Đăng nhập</a></button>
+        </div>
+    </div>
+    <div ng-hide="!isLogin">
+        <p class="text-center fw-bold text-primary">Bài Quiz môn {{quizName}}</p>
+        <div class="row" ng-show="!isProgress">
+            <div class="col text-center">
+                <button class="btn btn-primary" ng-click="start()">Start the Quiz</button>
+            </div>
+        </div>
+        
+        <div ng-show="isProgress">
+            <div class="row" ng-show="quizOver">
+                <div class="card">
+                    <div class="card-header fw-bold text-center">KẾT QUẢ</div>
+                    <h3 class="text-center">Số điểm của bạn là: {{score}}/10</h3>
+                    <div class="card-footer">
+                      <div class=" row mx-auto">
+                          <button type="button" ng-click="reset()" class="btn btn-outline-primary btn-sm text-nowrap">
+                            Thử lại
+                          </button>
+                      </div>
+                    </div>  
+                  </div>
+            </div>
+            <div ng-show="!quizOver">
+                <div class="row">
+                    <div class="col">
+                        <div class="card border-info">
+                            <div class="card-header text-white" style="background-color: #23B5E1;">
+                                <img src="images/JAAV.png" width="30" class="border border-primary rounded-lg" alt="">
+                                <span>{{quizName}}</span>
+                                <span class="float-end align-middle badge bg-secondary">{{questionNum}}/10</span>
+                            </div>
+                            <div class="card-body">
+            
+                                <div class="card-text" style="font-weight: 500;">
+                                    <label class="fw-bold">{{question}}</label>
+                                    <hr>
+                                    <div class="form-check" ng-repeat="opt in options">
+                                        <label class="form-check-label" for="Radios1">
+                                        <input class="form-check-input" type="radio" ng-checked="userAns == opt.Id" name="answer" value="{{opt.Id}}">
+                                            {{opt.Text}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-primary" ng-click="checkAnswer()">Submit</button>
+                                <button class="btn btn-primary" ng-click="nextQuestion()" ng-disabled="answerMod || questionNum == 10">Next</button>
+                                <button class="btn btn-primary" ng-click="finishTest()" ng-hide="answerMod || questionNum < 10">Finish test</button>
+                                <span ng-hide="answerMod">
+                                    <span ng-show="correctAns">Chính xác !</span>
+                                    <span ng-show="!correctAns">Rất tiếc, câu trả lời sai !</span>
+                                </span>
+                                <span class="float-end badge bg-success">Điểm: {{score}}/10</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

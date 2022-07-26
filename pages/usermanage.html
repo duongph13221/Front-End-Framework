@@ -1,0 +1,135 @@
+<div class="container">
+    <div class="alert {{isSuccess == true ? 'alert-success' : 'alert-danger' }}"
+        ng-show="message.length != 0">
+    {{message}}
+    </div>
+    <form ng-submit="onSubmitForm($event)"
+        action=""
+        class="col-8 offset-2">
+        <div class="form-group mt-3">
+            <label for="">Họ tên:</label>
+            <input class="form-control"
+                type="text"
+                ng-model="student.fullname">
+        </div>
+        <div class="form-group mt-3">
+            <label for="">Email</label>
+            <input class="form-control"
+                type="text"
+                ng-model="student.email">
+        </div>
+        <div class="form-group mt-3">
+            <label for="">Ngày sinh</label>
+            <input class="form-control"
+                type="text"
+                ng-model="student.birthday">
+        </div>
+        <div class="form-group mt-3">
+            <label class="col-12 col-md-4 mb-2 fw-bold" for="gioi_tinh_nam">
+                Giới tính:
+            </label>
+            <div class="col-10 row">
+                <div class="col-4">
+                    <input ng-model="student.gender" ng-checked="student.gender" type="radio" value="true" class="form-check-input" name="gioi_tinh" id="gioi_tinh_nam" />
+                    <label for="gioi_tinh_nam">Nam</label>
+                </div>
+                <div class="col-4">
+                    <input ng-model="student.gender" ng-checked="!student.gender" type="radio" value="false" class="form-check-input" name="gioi_tinh" id="gioi_tinh_nu" />
+                    <label for="gioi_tinh_nu">Nữ</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group mt-3">
+            <label class="col-12 col-md-4 mb-2 fw-bold" for="vai_tro_admin">
+                Vai trò:
+            </label>
+            <div class="col-10 row">
+                <div class="col-4">
+                    <input ng-model="student.role" ng-checked="student.role" type="radio" value="true" class="form-check-input" name="vai_tro" id="vai_tro_admin" />
+                    <label for="vai_tro_admin">Admin</label>
+                </div>
+                <div class="col-4">
+                    <input ng-model="student.role" ng-checked="!student.role" type="radio" value="false" class="form-check-input" name="vai_tro" id="vai_tro_user" />
+                    <label for="vai_tro_user">User</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group mt-3">
+            <label for="">Username:</label>
+            <input class="form-control"
+                type="text"
+                ng-model="student.username">
+        </div>
+        <div class="form-group mt-3">
+            <label for="">Password:</label>
+            <input class="form-control"
+                type="text"
+                ng-model="student.password">
+        </div>
+        <div class="form-group mt-3">
+            <button class="btn btn-primary">Lưu</button>
+            <button type="reset"
+                class="btn btn-default ml-3">Xóa form</button>
+        </div>
+    </form>
+    <div class="col-8 px-0">
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Họ tên</th>
+                    <th>Email</th>
+                    <th>Ngày sinh</th>
+                    <th>Giới tính</th>
+                    <th>Vai trò</th>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th colspan="2">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="sv in students">
+                    <td>{{ sv.id }}</td>
+                    <td>{{ sv.fullname }}</td>
+                    <td>{{ sv.email }}</td>
+                    <td>{{ sv.birthday }}</td>
+                    <td>{{ sv.gender }}</td>
+                    <td>{{ sv.role }}</td>
+                    <td>{{ sv.username }}</td>
+                    <td>{{ sv.password }}</td>
+                    <td>
+                        <button class="btn btn-primary" ng-click="onClick(sv.id)">Sửa</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modal_delete_{{ sv.id }}">Xóa</button>
+
+                        <div class="modal fade" id="modal_delete_{{ sv.id }}"
+                            tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Xóa</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Xác nhận xóa?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Đóng</button>
+                                        <button type="button"
+                                            ng-click="onDelete(sv.id)"
+                                            class="btn btn-danger">Xóa</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
